@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <title> API Fun! </title>
+        <style>
+            body { font-family: "Times New Roman", Serif; }
+            h1 { font-size: 45px; }
+            h2 { font-size: 30px; }
+            h3 { font-size: 20px; }
+            .center { text-align: center; }
+            .left-col, .right-col {
+                text-align: center;
+                display: inline-block;
+                width: 45%;
+                margin: 0;
+            }
+            .left {
+                text-align: right;
+                display: inline-block;
+                width: 45%;
+                margin: 0;
+                padding-right: 10px;
+            }
+            .right {
+                text-align: left;
+                display: inline-block;
+                width: 45%;
+                margin: 0;
+                padding-left: 10px;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    </head>
+    <body>
+        <div>
+            <b>The API:</b>
+                <a href="https://www.boredapi.com/" target="_blank"> Bored </a>
+            </br>
+            <b>Where I found it:</b>
+                <a href="https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/" target="_blank"> mixedanalytics.com </a>
+            </br>
+            <b>Options used:</b>
+                I used options to specify the type of activity. There are also options for the number of participants, price, and accessibility.
+            </br>
+            <b>Applications:</b>
+                This API is useful for projects like an app that suggests activities or one that helps you and friends pick activities.
+            </br>
+            </br>
+        </div>
+        <form class = "center">
+            <input type="button" id="any" value="Any Activity">
+            <input type="button" id="education" value="Educational Activity">
+            <input type="button" id="recreational" value="Recreational Activity">
+            <input type="button" id="social" value="Social Activity">
+            <input type="button" id="diy" value="DIY Activity">
+            <input type="button" id="charity" value="Charity Activity">
+            <input type="button" id="cooking" value="Cooking Activity">
+            <input type="button" id="relaxation" value="Relaxation Activity">
+            <input type="button" id="music" value="Music Activity">
+            <input type="button" id="busywork" value="Busywork Activity">
+        </form>
+        <div class="left-col">
+            <h3>AJAX</h3>
+            <div class="left">
+                <p>Activity:</p>
+                <p>Type:</p>
+                <p>Participants:</p>
+            </div>
+            <div class="right">
+                <p id="activity1"></p>
+                <p id="type1"></p>
+                <p id="participants1"></p>
+            </div>
+        </div>
+        <div class="right-col">
+            <h3>fetch</h3>
+            <div class="left">
+                <p>Activity:</p>
+                <p>Type:</p>
+                <p>Participants:</p>
+            </div>
+            <div class="right">
+                <p id="activity2"></p>
+                <p id="type2"></p>
+                <p id="participants2"></p>
+            </div>
+        </div>
+        <script language = "javascript">
+            any = document.getElementById("any");
+            any.onclick = function() { call("any"); };
+            edu = document.getElementById("education");
+            edu.onclick = function() { call("education"); };
+            rec = document.getElementById("recreational");
+            rec.onclick = function() { call("recreational"); };
+            soc = document.getElementById("social");
+            soc.onclick = function() { call("social"); };
+            diy = document.getElementById("diy");
+            diy.onclick = function() { call("diy"); };
+            cha = document.getElementById("charity");
+            cha.onclick = function() { call("charity"); };
+            coo = document.getElementById("cooking");
+            coo.onclick = function() { call("cooking"); };
+            rel = document.getElementById("relaxation");
+            rel.onclick = function() { call("relaxation"); };
+            mus = document.getElementById("music");
+            mus.onclick = function() { call("music"); };
+            bus = document.getElementById("busywork");
+            bus.onclick = function() { call("busywork"); };
+            
+            function call(type)
+            {
+                if (type == "any") {
+                    ajaxCall("http://www.boredapi.com/api/activity/");
+                    fetchCall("http://www.boredapi.com/api/activity/");
+                }
+                else if (type == "education") {
+                    ajaxCall("http://www.boredapi.com/api/activity?type=education");
+                    fetchCall("http://www.boredapi.com/api/activity?type=education");
+                } else if (type == "recreational") {
+                    ajaxCall("http://www.boredapi.com/api/activity?type=recreational");
+                    fetchCall("http://www.boredapi.com/api/activity?type=recreational");
+                } else if (type == "social") {
+                    ajaxCall("http://www.boredapi.com/api/activity?type=social");
+                    fetchCall("http://www.boredapi.com/api/activity?type=social");
+                } else if (type == "diy") {
+                    ajaxCall("http://www.boredapi.com/api/activity?type=diy");
+                    fetchCall("http://www.boredapi.com/api/activity?type=diy");
+                } else if (type == "charity") {
+                    ajaxCall("http://www.boredapi.com/api/activity?type=charity");
+                    fetchCall("http://www.boredapi.com/api/activity?type=charity");
+                } else if (type == "cooking") {
+                    ajaxCall("http://www.boredapi.com/api/activity?type=cooking");
+                    fetchCall("http://www.boredapi.com/api/activity?type=cooking");
+                } else if (type == "relaxation") {
+                    ajaxCall("http://www.boredapi.com/api/activity?type=relaxation");
+                    fetchCall("http://www.boredapi.com/api/activity?type=relaxation");
+                } else if (type == "music") {
+                    ajaxCall("http://www.boredapi.com/api/activity?type=music");
+                    fetchCall("http://www.boredapi.com/api/activity?type=music");
+                } else if (type == "busywork") {
+                    ajaxCall("http://www.boredapi.com/api/activity?type=busywork");
+                    fetchCall("http://www.boredapi.com/api/activity?type=busywork");
+                }
+            }
+            
+            function ajaxCall(type)
+            {
+                xhr = new XMLHttpRequest();
+                if (!xhr) {
+                    alert("Unable to create HTTPRequest object");
+                    return;
+                }
+                xhr.open("GET", type, true);
+                xhr.onload = function () {
+                    if (this.status === 200) {
+                        // Changing string data into JSON Object
+                        obj = JSON.parse(this.responseText);
+                        
+                        activity = document.getElementById("activity1");
+                        activity.innerHTML = obj.activity;
+                        type = document.getElementById("type1");
+                        type.innerHTML = obj.type;
+                        participants = document.getElementById("participants1");
+                        participants.innerHTML = obj.participants;
+                    }
+                    else {
+                        console.log("File not found");
+                    }
+                }
+                xhr.send();
+            }
+            
+            function fetchCall(type)
+            {
+                fetch(type)
+                .then ((response) => { return response.json(); })
+                .then ((data) => {
+                    // obj = JSON.parse(data);
+                    obj = data;
+                    activity = document.getElementById("activity2");
+                    activity.innerHTML = obj.activity;
+                    type = document.getElementById("type2");
+                    type.innerHTML = obj.type;
+                    participants = document.getElementById("participants2");
+                    participants.innerHTML = obj.participants;
+                })
+                .catch (error => console.log(error))
+            }
+        </script>
+    </body>
+</html>
